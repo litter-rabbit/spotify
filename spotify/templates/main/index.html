@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+{% from 'bootstrap/pagination.html' import render_pagination %}
+{% from 'bootstrap/form.html' import render_form %}
+
+{% block content %}
+<main class="main">
+    <div class="container">
+
+        <div class="row">
+            <div class="col-md-3">
+                <form action="{{ url_for('ajax.new_order') }}" >
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">邮箱</label>
+                        <input name="email" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">密码</label>
+                        <input name="password" type="text" class="form-control" id="exampleInputPassword1">
+                    </div>
+                      <div class="form-group">
+                        <label for="exampleInputLink">分享链接</label>
+                        <input name="link" type="text" class="form-control" id="exampleInputLink">
+                    </div>
+                    <button type="submit" class="btn btn-primary">提交</button>
+                </form>
+
+                <form action="{{ url_for('ajax.new_orders')}}">
+
+                    <div class="form-group">
+                        <label for="ControlTextarea">密码</label>
+                         <textarea name="orders" class="form-control" id="ControlTextarea" rows="3"  placeholder="格式：账户 密码 链接 注：用空格隔开"></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">批量提交</button>
+
+                </form>
+            </div>
+            <div class="col-md-9">
+                <table class="table table-striped " style="border-bottom: 1px solid #f0f2f7;">
+                    <thead>
+                    <tr>
+                        <td>邮箱</td>
+                        <td>密码</td>
+                        <td>订单状态</td>
+                        <td>下单时间</td>
+                        <td>操作</td>
+                    </tr>
+                    </thead>
+                    {% for order in orders %}
+                    <tr>
+                        <td>{{ order.email }}</td>
+                        <td>{{ order.password }}</td>
+                        {% if order.status=='正在处理' %}
+                        <td class="btn-runing">
+                            {{order.status}}
+                        </td>
+                        {% elif order.status=='处理成功' %}
+                          <td class="btn-ok">
+                            {{order.status}}
+                        </td>
+                        {% else %}
+                          <td class="btn-error">
+                            {{order.status}}
+                        {% endif %}
+                        <td>{{ moment(order.timestamp).format('L')}} <small>{{ (moment(order.timestamp).fromNow(refresh=True)) }}</small>  </td>
+                        {% if order.status=='时间超时' %}
+                             <td>
+                                <button type="button" class="btn btn-primary btn-sm ">查看详情</button>
+                            </td>
+                        {% else %}
+                        <td>
+                            <button type="button" class="btn btn-primary btn-sm profile-popover " data-href="{{ url_for('ajax.get_detail',order_id=order.id) }}">查看详情</button>
+                        </td>
+                        {% endif %}
+
+                    </tr>
+                    {% endfor %}
+                </table>
+                {% if orders %}
+                <div class="page-footer">
+                    {{ render_pagination(pagination, align='center') }}
+                </div>
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
+
+</main>
+
+
+{% endblock %}
