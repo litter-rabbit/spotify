@@ -16,9 +16,13 @@ from dateutil import relativedelta
 
 
 def get(email,password,link):
-    driver = webdriver.Chrome()
+
     option = webdriver.ChromeOptions()
-    option.add_experimental_option("detach", True)
+    option.add_argument('--headless')
+    option.add_argument('--disable-gpu')  # 谷歌文档提到需要加上这个属性来规避bug
+    option.add_argument('--hide-scrollbars')  # 隐藏滚动条, 应对一些特殊页面
+    option.add_argument('blink-settings=imagesEnabled=false')  # 不加载图片, 提升速度
+    driver = webdriver.Chrome(chrome_options=option)
     driver.delete_all_cookies()
     order=Order(email=email,password=password,link=link)
 
