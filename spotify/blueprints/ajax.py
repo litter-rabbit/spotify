@@ -1,7 +1,7 @@
 
 from flask import Blueprint,jsonify,flash,redirect,url_for,request,render_template
 from flask_login import login_required
-from spotify.models import Order
+from spotify.models import Order,Link
 from multiprocessing import Process
 from spotify.extendtions import db
 from spotify.parse import get
@@ -11,24 +11,33 @@ ajax_bp=Blueprint('ajax',__name__)
 
 
 @ajax_bp.route('/parse/order',methods=['POST','GET'])
-
+@login_required
 def new_order():
 
     email='qh0607284@163.com'
     password='07551012'
     link='https://www.spotify.com/us/family/join/invite/85yY34a95B6Ac99/'
 
-
     e=request.args.get('email')
     p=request.args.get('password')
-    l=request.args.get('link')
 
-    order = Order(email=e, password=p)
+    while True:
+        link=Link.query.first()
+        if not link:
+            flash('当前没有可用链接，请添加','danger')
+            return redirect(url_for('main.links'))
+        if link.times>0:
+            break
+        else:
+            db.session.delete(link)
+            db.session.commit()
+
+
+    order = Order(email=e, password=p,link=link)
     db.session.add(order)
-    t=Process(target=get,args=(e,p,l))
+    t=Process(target=get,args=(e,p,link))
     t.start()
     flash('提交成功,正在处理','success')
-
     return redirect(url_for('main.index'))
 
 @ajax_bp.route('/parse/orders',methods=['POST','GET'])
@@ -52,6 +61,19 @@ def new_orders():
 
     return redirect(url_for('main.index'))
 
+@ajax_bp.route('/new/links',methods=['POST','GET'])
+@login_required
+def new_links():
+
+    links=request.args.get('links')
+    infos=links.split()
+    for i in infos:
+        link=Link(infos=i)
+        db.session.add(link)
+    db.session.commit()
+
+    return redirect(url_for('main.links'))
+
 
 
 @ajax_bp.route('/get/detail/<order_id>',methods=['POST','GET'])
@@ -62,6 +84,16 @@ def get_detail(order_id):
     orders=Order.query.filter_by(email=order.email).all()
     buy_times=len(orders)
     return render_template('main/detail_poppu.html',order=order,buy_times=buy_times)
+
+
+@ajax_bp.route('/delete/link/<link_id>',methods=['POST','GET'])
+@login_required
+def delete_link(link_id):
+    link=Link.query.get(link_id)
+    db.session.delete(link)
+    db.session.commit()
+    flash('删除成功','success')
+
 
 # @ajax_bp.route('/reorder',methods=['POST','GET'])
 # @login_required

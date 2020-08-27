@@ -17,18 +17,15 @@
                         <label for="exampleInputPassword1">密码</label>
                         <input name="password" type="text" class="form-control" id="exampleInputPassword1">
                     </div>
-                      <div class="form-group">
-                        <label for="exampleInputLink">分享链接</label>
-                        <input name="link" type="text" class="form-control" id="exampleInputLink">
-                    </div>
+
                     <button type="submit" class="btn btn-primary">提交</button>
                 </form>
 
                 <form action="{{ url_for('ajax.new_orders')}}">
 
                     <div class="form-group">
-                        <label for="ControlTextarea">密码</label>
-                         <textarea name="orders" class="form-control" id="ControlTextarea" rows="3"  placeholder="格式：账户 密码 链接 注：用空格隔开"></textarea>
+                        <label for="ControlTextarea">账号</label>
+                         <textarea name="orders" class="form-control" id="ControlTextarea" rows="3"  placeholder="格式：账户 密码 注：用空格隔开"></textarea>
                     </div>
 
                     <button type="submit" class="btn btn-primary">批量提交</button>

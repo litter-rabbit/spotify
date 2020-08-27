@@ -10,6 +10,7 @@ import asyncio
 from multiprocessing import Process
 from spotify.extendtions import db
 from spotify.models import Order
+from dateutil import relativedelta
 
 
 
@@ -73,8 +74,8 @@ def get(email,password,link):
 
 def share(driver,link,order):
 
-    driver.get(link)
-    link_split = link.split('/')
+    driver.get(link.infos)
+    link_split = link.infos.split('/')
     token = link_split[-1]
     if len(token) < 1:
         token = link_split[-2]
@@ -95,10 +96,12 @@ def share(driver,link,order):
         time.sleep(1)
         if driver.current_url == link_address:
             order.status = '链接失效'
+            db.session.delete(link)
             db.session.commit()
             return None
         else:
             order.status = '处理成功'
+            order.expiretime+=relativedelta(years=1)
             db.session.add(order)
             db.session.commit()
     except ex.TimeoutException:

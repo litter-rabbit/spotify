@@ -8,13 +8,10 @@
             <h6 class="card-title">密码</h6>
             <input name="password" type="text" value={{ order.password }}>
         </div>
-        <div class="card-body">
-            <h6 class="card-title">分享链接</h6>
-            <input name="link" type="text" value={{ order.link }}>
-        </div>
         <ul class="list-group list-group-flush">
             <li class="list-group-item">订单号:{{order.id}}</li>
             <li class="list-group-item">订单时间:{{ order.timestamp }}</li>
+            <li class="list-group-item">到期时间:{{ order.expiretime }}</li>
             <li class="list-group-item">当前账号订购次数:{{ buy_times }}</li>
             <li class="list-group-item"></li>
         </ul>

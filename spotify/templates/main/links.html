@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% from 'bootstrap/pagination.html' import render_pagination %}
+{% from 'bootstrap/form.html' import render_form %}
+
+{% block content %}
+<main class="main">
+    <div class="container">
+
+        <div class="row">
+            <div class="col-md-3">
+                    <form action="{{ url_for('ajax.new_links')}}">
+
+                    <div class="form-group">
+                        <label for="ControlTextarea">链接</label>
+                         <textarea name="links" class="form-control" id="ControlTextarea" rows="3"  placeholder="格式：链接1 链接2 注：用空格隔开"></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">批量提交</button>
+
+                </form>
+            </div>
+            <div class="col-md-9">
+                <table class="table table-striped " style="border-bottom: 1px solid #f0f2f7;">
+                    <thead>
+                    <tr>
+                        <td>链接</td>
+                        <td>可用次数</td>
+                        <td>操作</td>
+                    </tr>
+                    </thead>
+                    {% for link in links %}
+                    <tr>
+                        <td>{{ link.infos}}</td>
+                        <td>{{ link.times }}</td>
+                        <td>
+                           <a class="btn btn-primary" href="{{url_for('ajax.delete_link',link_id=link.id)}}">删除</a>
+                        </td>
+
+                    </tr>
+                    {% endfor %}
+                </table>
+                {% if links %}
+                <div class="page-footer">
+                    {{ render_pagination(pagination, align='center') }}
+                </div>
+                {% endif %}
+
+            </div>
+
+        </div>
+    </div>
+
+</main>
+
+
+{% endblock %}
