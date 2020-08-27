@@ -5,9 +5,6 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import Select
 import selenium.common.exceptions as ex
 import time
-import asyncio
-
-from multiprocessing import Process
 from spotify.extendtions import db
 from spotify.models import Order
 from dateutil import relativedelta
@@ -26,7 +23,6 @@ def get(email,password,link):
     driver = webdriver.Chrome(chrome_options=option)
     driver.delete_all_cookies()
     order=Order(email=email,password=password,link=link)
-
     db.session.add(order)
     db.session.commit()
     # 登录

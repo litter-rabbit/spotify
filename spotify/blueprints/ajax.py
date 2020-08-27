@@ -1,5 +1,5 @@
 
-from flask import Blueprint,jsonify,flash,redirect,url_for,request,render_template
+from flask import Blueprint,flash,redirect,url_for,request,render_template
 from flask_login import login_required
 from spotify.models import Order,Link
 from multiprocessing import Process
@@ -32,9 +32,6 @@ def new_order():
             db.session.delete(link)
             db.session.commit()
 
-
-    order = Order(email=e, password=p,link=link)
-    db.session.add(order)
     t=Process(target=get,args=(e,p,link))
     t.start()
     flash('提交成功,正在处理','success')
