@@ -47,6 +47,7 @@ def  register_extendtions(app):
     whooshee.init_app(app)
     csrf.init_app(app)
     migrate.init_app(app,db)
+    register_logging(app)
 
 
 
@@ -56,40 +57,28 @@ def register_blueprints(app):
     app.register_blueprint(auth_bp,url_prefix='/auth')
     app.register_blueprint(ajax_bp,url_prefix='/ajax')
 
-
 def register_logging(app):
-    class RequestFormaspotifyer(logging.Formaspotifyer):
+    class RequestFormatter(logging.Formatter):
 
         def format(self, record):
             record.url = request.url
             record.remote_addr = request.remote_addr
-            return super(RequestFormaspotifyer, self).format(record)
+            return super(RequestFormatter, self).format(record)
 
-    request_formaspotifyer = RequestFormaspotifyer(
+    request_formatter = RequestFormatter(
         '[%(asctime)s] %(remote_addr)s requested %(url)s\n'
         '%(levelname)s in %(module)s: %(message)s'
     )
 
-    formaspotifyer = logging.Formaspotifyer('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 
-    file_handler = RotatingFileHandler(os.path.join(basedir, 'logs/spotify.log'),
+    file_handler = RotatingFileHandler(os.path.join(basedir, 'logs/tt.log'),
                                        maxBytes=10 * 1024 * 1024, backupCount=10)
-    file_handler.setFormaspotifyer(formaspotifyer)
+    file_handler.setFormatter(formatter)
     file_handler.setLevel(logging.INFO)
 
-    mail_handler = SMTPHandler(
-        mailhost=app.config['MAIL_SERVER'],
-        fromaddr=app.config['MAIL_USERNAME'],
-        toaddrs=app.config['ADMIN_EMAIL'],
-        subject='spotify Application Error',
-        credentials=(app.config['MAIL_USERNAME'], app.config['MAIL_PASSWORD']))
-    mail_handler.setLevel(logging.ERROR)
-    mail_handler.setFormaspotifyer(request_formaspotifyer)
-
     if not app.debug:
-        app.logger.addHandler(mail_handler)
         app.logger.addHandler(file_handler)
-
 
 def register_command(app):
 

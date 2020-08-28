@@ -90,6 +90,7 @@ def delete_link(link_id):
     db.session.delete(link)
     db.session.commit()
     flash('删除成功','success')
+    return redirect(url_for('main.links'))
 
 
 # @ajax_bp.route('/reorder',methods=['POST','GET'])
