@@ -60,15 +60,10 @@
                             {{order.status}}
                         {% endif %}
                         <td>{{ moment(order.timestamp).format('L')}} <small>{{ (moment(order.timestamp).fromNow(refresh=True)) }}</small>  </td>
-                        {% if order.status=='时间超时' %}
-                             <td>
-                                <button type="button" class="btn btn-primary btn-sm ">查看详情</button>
-                            </td>
-                        {% else %}
                         <td>
                             <button type="button" class="btn btn-primary btn-sm profile-popover " data-href="{{ url_for('ajax.get_detail',order_id=order.id) }}">查看详情</button>
                         </td>
-                        {% endif %}
+
 
                     </tr>
                     {% endfor %}
