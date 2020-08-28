@@ -16,7 +16,7 @@ def get(email,password,link):
 
     option = webdriver.ChromeOptions()
     option.add_argument('--no-sandbox')
-    option.add_argument('--headless')
+    # option.add_argument('--headless')
     option.add_argument('--disable-gpu')  # 谷歌文档提到需要加上这个属性来规避bug
     option.add_argument('--hide-scrollbars')  # 隐藏滚动条, 应对一些特殊页面
     option.add_argument('blink-settings=imagesEnabled=false')  # 不加载图片, 提升速度
@@ -102,6 +102,7 @@ def share(driver,link,order):
             return None
         else:
             order.status = '处理成功'
+            link.times-=1
             order.expiretime+=relativedelta(years=1)
             db.session.add(order)
             db.session.commit()
