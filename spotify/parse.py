@@ -7,22 +7,21 @@ import selenium.common.exceptions as ex
 import time
 from spotify.extendtions import db
 from spotify.models import Order
-from dateutil import relativedelta
-
-
-
+from dateutil.relativedelta import relativedelta
+import datetime
 
 def get(email,password,link):
 
     option = webdriver.ChromeOptions()
     option.add_argument('--no-sandbox')
-    option.add_argument('--headless')
+    #option.add_argument('--headless')
     option.add_argument('--disable-gpu')  # 谷歌文档提到需要加上这个属性来规避bug
     option.add_argument('--hide-scrollbars')  # 隐藏滚动条, 应对一些特殊页面
     option.add_argument('blink-settings=imagesEnabled=false')  # 不加载图片, 提升速度
     driver = webdriver.Chrome(chrome_options=option)
     driver.delete_all_cookies()
     order=Order(email=email,password=password,link=link)
+
     db.session.add(order)
     db.session.commit()
     # 登录
@@ -35,6 +34,7 @@ def get(email,password,link):
 
     driver.get('https://www.spotify.com/hk-en/account/overview/')
     driver.get('https://www.spotify.com/hk-en/account/overview/')
+
 
     # 检查地区
     try:
@@ -94,7 +94,7 @@ def share(driver,link,order):
             EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/div/div/div/footer/button[2]'))
         )
         confirm_btn.click()
-        time.sleep(1)
+        time.sleep(2)
         if driver.current_url == link_address:
             order.status = '链接失效'
             db.session.delete(link)
@@ -103,9 +103,9 @@ def share(driver,link,order):
         else:
             order.status = '处理成功'
             link.times-=1
-            order.expiretime+=relativedelta(years=1)
-            db.session.add(order)
+            order.expiretime = datetime.datetime.utcnow() + relativedelta(years=1)
             db.session.commit()
+            return None
     except ex.TimeoutException:
         order.status='时间超时'
         db.session.commit()
