@@ -1,9 +1,10 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request,flash,url_for,redirect
 from spotify.extendtions import db, login_manager, whooshee, csrf, migrate, bootstrap, moment
 from spotify.blueprints.main import main_bp
 from spotify.blueprints.auth import auth_bp
 from spotify.blueprints.ajax import ajax_bp
 from spotify.settings import config, basedir
+from spotify.models import Link
 
 import click
 import logging
@@ -12,23 +13,11 @@ from spotify.models import Admin
 
 from spotify.extendtions import db
 from spotify.models import Order
+from celery import Celery
 import os
 
 
-# def create_app(configname=None):
-#     if not configname:
-#         configname=os.getenv('FLASK_CONFIG','development')
-#
-#     app=Flask('spotify')
-#
-#     app.config.from_object(config[configname])
-#     register_extendtions(app)
-#     register_blueprints(app)
-#     register_command(app)
-#     register_errorhandlers(app)
-#
-#
-#     return app
+
 
 
 def register_extendtions(app):
@@ -41,6 +30,7 @@ def register_extendtions(app):
     csrf.init_app(app)
     migrate.init_app(app, db)
     register_logging(app)
+
 
 
 def register_blueprints(app):
@@ -133,3 +123,4 @@ register_extendtions(app)
 register_blueprints(app)
 register_command(app)
 register_errorhandlers(app)
+

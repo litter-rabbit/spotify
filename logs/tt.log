@@ -26,3 +26,447 @@ Traceback (most recent call last):
   File "D:\webproject\flaskproject\spotify\spotify\blueprints\auth.py", line 14, in login
     admin= Admin.query.filter_by(username=form.usrname.data).first()
 AttributeError: 'LoginForm' object has no attribute 'usrname'
+2020-08-30 21:39:30,917 - spotify - ERROR - Exception on / [GET]
+Traceback (most recent call last):
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\sqlalchemy\engine\base.py", line 1277, in _execute_context
+    cursor, statement, parameters, context
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\sqlalchemy\engine\default.py", line 593, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.OperationalError: no such table: admin
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\flask\app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\flask\app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\flask\app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\flask\app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\flask\app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\flask_login\utils.py", line 270, in decorated_view
+    elif not current_user.is_authenticated:
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\werkzeug\local.py", line 347, in __getattr__
+    return getattr(self._get_current_object(), name)
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\werkzeug\local.py", line 306, in _get_current_object
+    return self.__local()
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\flask_login\utils.py", line 26, in <lambda>
+    current_user = LocalProxy(lambda: _get_user())
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\flask_login\utils.py", line 346, in _get_user
+    current_app.login_manager._load_user()
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\flask_login\login_manager.py", line 318, in _load_user
+    user = self._user_callback(user_id)
+  File "D:\webproject\flaskproject\spotify\spotify\extendtions.py", line 32, in load_user
+    user = Admin.query.get(username)
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\sqlalchemy\orm\query.py", line 1018, in get
+    return self._get_impl(ident, loading.load_on_pk_identity)
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\sqlalchemy\orm\query.py", line 1135, in _get_impl
+    return db_load_fn(self, primary_key_identity)
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\sqlalchemy\orm\loading.py", line 286, in load_on_pk_identity
+    return q.one()
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\sqlalchemy\orm\query.py", line 3463, in one
+    ret = self.one_or_none()
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\sqlalchemy\orm\query.py", line 3432, in one_or_none
+    ret = list(self)
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\sqlalchemy\orm\query.py", line 3508, in __iter__
+    return self._execute_and_instances(context)
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\sqlalchemy\orm\query.py", line 3533, in _execute_and_instances
+    result = conn.execute(querycontext.statement, self._params)
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\sqlalchemy\engine\base.py", line 1011, in execute
+    return meth(self, multiparams, params)
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\sqlalchemy\sql\elements.py", line 298, in _execute_on_connection
+    return connection._execute_clauseelement(self, multiparams, params)
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\sqlalchemy\engine\base.py", line 1130, in _execute_clauseelement
+    distilled_params,
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\sqlalchemy\engine\base.py", line 1317, in _execute_context
+    e, statement, parameters, cursor, context
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\sqlalchemy\engine\base.py", line 1511, in _handle_dbapi_exception
+    sqlalchemy_exception, with_traceback=exc_info[2], from_=e
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\sqlalchemy\util\compat.py", line 182, in raise_
+    raise exception
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\sqlalchemy\engine\base.py", line 1277, in _execute_context
+    cursor, statement, parameters, context
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\sqlalchemy\engine\default.py", line 593, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) no such table: admin
+[SQL: SELECT admin.username AS admin_username, admin.passwrod AS admin_passwrod 
+FROM admin 
+WHERE admin.username = ?]
+[parameters: ('admin2',)]
+(Background on this error at: http://sqlalche.me/e/13/e3q8)
+2020-08-30 21:47:49,761 - spotify - ERROR - Exception on / [GET]
+Traceback (most recent call last):
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\sqlalchemy\engine\base.py", line 1277, in _execute_context
+    cursor, statement, parameters, context
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\sqlalchemy\engine\default.py", line 593, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.OperationalError: no such table: admin
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\flask\app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\flask\app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\flask\app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\flask\app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\flask\app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\flask_login\utils.py", line 270, in decorated_view
+    elif not current_user.is_authenticated:
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\werkzeug\local.py", line 347, in __getattr__
+    return getattr(self._get_current_object(), name)
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\werkzeug\local.py", line 306, in _get_current_object
+    return self.__local()
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\flask_login\utils.py", line 26, in <lambda>
+    current_user = LocalProxy(lambda: _get_user())
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\flask_login\utils.py", line 346, in _get_user
+    current_app.login_manager._load_user()
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\flask_login\login_manager.py", line 318, in _load_user
+    user = self._user_callback(user_id)
+  File "D:\webproject\flaskproject\spotify\spotify\extendtions.py", line 27, in load_user
+    user = Admin.query.get(username)
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\sqlalchemy\orm\query.py", line 1018, in get
+    return self._get_impl(ident, loading.load_on_pk_identity)
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\sqlalchemy\orm\query.py", line 1135, in _get_impl
+    return db_load_fn(self, primary_key_identity)
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\sqlalchemy\orm\loading.py", line 286, in load_on_pk_identity
+    return q.one()
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\sqlalchemy\orm\query.py", line 3463, in one
+    ret = self.one_or_none()
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\sqlalchemy\orm\query.py", line 3432, in one_or_none
+    ret = list(self)
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\sqlalchemy\orm\query.py", line 3508, in __iter__
+    return self._execute_and_instances(context)
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\sqlalchemy\orm\query.py", line 3533, in _execute_and_instances
+    result = conn.execute(querycontext.statement, self._params)
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\sqlalchemy\engine\base.py", line 1011, in execute
+    return meth(self, multiparams, params)
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\sqlalchemy\sql\elements.py", line 298, in _execute_on_connection
+    return connection._execute_clauseelement(self, multiparams, params)
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\sqlalchemy\engine\base.py", line 1130, in _execute_clauseelement
+    distilled_params,
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\sqlalchemy\engine\base.py", line 1317, in _execute_context
+    e, statement, parameters, cursor, context
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\sqlalchemy\engine\base.py", line 1511, in _handle_dbapi_exception
+    sqlalchemy_exception, with_traceback=exc_info[2], from_=e
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\sqlalchemy\util\compat.py", line 182, in raise_
+    raise exception
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\sqlalchemy\engine\base.py", line 1277, in _execute_context
+    cursor, statement, parameters, context
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\sqlalchemy\engine\default.py", line 593, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) no such table: admin
+[SQL: SELECT admin.username AS admin_username, admin.passwrod AS admin_passwrod 
+FROM admin 
+WHERE admin.username = ?]
+[parameters: ('admin2',)]
+(Background on this error at: http://sqlalche.me/e/13/e3q8)
+2020-08-30 21:49:58,883 - spotify - ERROR - Exception on /ajax/parse/order [GET]
+Traceback (most recent call last):
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\kombu\serialization.py", line 50, in _reraise_errors
+    yield
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\kombu\serialization.py", line 221, in dumps
+    payload = encoder(data)
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\kombu\utils\json.py", line 70, in dumps
+    **dict(default_kwargs, **kwargs))
+  File "D:\pyhton\python3.6.1\lib\json\__init__.py", line 238, in dumps
+    **kw).encode(obj)
+  File "D:\pyhton\python3.6.1\lib\json\encoder.py", line 199, in encode
+    chunks = self.iterencode(o, _one_shot=True)
+  File "D:\pyhton\python3.6.1\lib\json\encoder.py", line 257, in iterencode
+    return _iterencode(o, 0)
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\kombu\utils\json.py", line 59, in default
+    return super(JSONEncoder, self).default(o)
+  File "D:\pyhton\python3.6.1\lib\json\encoder.py", line 180, in default
+    o.__class__.__name__)
+TypeError: Object of type 'Link' is not JSON serializable
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\flask\app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\flask\app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\flask\app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\flask\app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\flask\app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "D:\webproject\flaskproject\spotify\spotify\__init__.py", line 166, in new_order
+    get_celery.delay(e,p,link)
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\celery\app\task.py", line 426, in delay
+    return self.apply_async(args, kwargs)
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\celery\app\task.py", line 570, in apply_async
+    **options
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\celery\app\base.py", line 741, in send_task
+    amqp.send_task_message(P, name, message, **options)
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\celery\app\amqp.py", line 561, in send_task_message
+    **properties
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\kombu\messaging.py", line 169, in publish
+    compression, headers)
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\kombu\messaging.py", line 252, in _prepare
+    body) = dumps(body, serializer=serializer)
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\kombu\serialization.py", line 221, in dumps
+    payload = encoder(data)
+  File "D:\pyhton\python3.6.1\lib\contextlib.py", line 100, in __exit__
+    self.gen.throw(type, value, traceback)
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\kombu\serialization.py", line 54, in _reraise_errors
+    reraise(wrapper, wrapper(exc), sys.exc_info()[2])
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\vine\five.py", line 194, in reraise
+    raise value.with_traceback(tb)
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\kombu\serialization.py", line 50, in _reraise_errors
+    yield
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\kombu\serialization.py", line 221, in dumps
+    payload = encoder(data)
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\kombu\utils\json.py", line 70, in dumps
+    **dict(default_kwargs, **kwargs))
+  File "D:\pyhton\python3.6.1\lib\json\__init__.py", line 238, in dumps
+    **kw).encode(obj)
+  File "D:\pyhton\python3.6.1\lib\json\encoder.py", line 199, in encode
+    chunks = self.iterencode(o, _one_shot=True)
+  File "D:\pyhton\python3.6.1\lib\json\encoder.py", line 257, in iterencode
+    return _iterencode(o, 0)
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\kombu\utils\json.py", line 59, in default
+    return super(JSONEncoder, self).default(o)
+  File "D:\pyhton\python3.6.1\lib\json\encoder.py", line 180, in default
+    o.__class__.__name__)
+kombu.exceptions.EncodeError: Object of type 'Link' is not JSON serializable
+2020-08-30 21:54:50,555 - spotify - ERROR - Exception on /ajax/parse/order [GET]
+Traceback (most recent call last):
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\kombu\serialization.py", line 50, in _reraise_errors
+    yield
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\kombu\serialization.py", line 221, in dumps
+    payload = encoder(data)
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\kombu\utils\json.py", line 70, in dumps
+    **dict(default_kwargs, **kwargs))
+  File "D:\pyhton\python3.6.1\lib\json\__init__.py", line 238, in dumps
+    **kw).encode(obj)
+  File "D:\pyhton\python3.6.1\lib\json\encoder.py", line 199, in encode
+    chunks = self.iterencode(o, _one_shot=True)
+  File "D:\pyhton\python3.6.1\lib\json\encoder.py", line 257, in iterencode
+    return _iterencode(o, 0)
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\kombu\utils\json.py", line 59, in default
+    return super(JSONEncoder, self).default(o)
+  File "D:\pyhton\python3.6.1\lib\json\encoder.py", line 180, in default
+    o.__class__.__name__)
+TypeError: Object of type 'Link' is not JSON serializable
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\flask\app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\flask\app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\flask\app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\flask\app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\flask\app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "D:\webproject\flaskproject\spotify\spotify\__init__.py", line 167, in new_order
+    get_celery.delay(e,p,link)
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\celery\app\task.py", line 426, in delay
+    return self.apply_async(args, kwargs)
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\celery\app\task.py", line 570, in apply_async
+    **options
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\celery\app\base.py", line 741, in send_task
+    amqp.send_task_message(P, name, message, **options)
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\celery\app\amqp.py", line 561, in send_task_message
+    **properties
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\kombu\messaging.py", line 169, in publish
+    compression, headers)
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\kombu\messaging.py", line 252, in _prepare
+    body) = dumps(body, serializer=serializer)
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\kombu\serialization.py", line 221, in dumps
+    payload = encoder(data)
+  File "D:\pyhton\python3.6.1\lib\contextlib.py", line 100, in __exit__
+    self.gen.throw(type, value, traceback)
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\kombu\serialization.py", line 54, in _reraise_errors
+    reraise(wrapper, wrapper(exc), sys.exc_info()[2])
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\vine\five.py", line 194, in reraise
+    raise value.with_traceback(tb)
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\kombu\serialization.py", line 50, in _reraise_errors
+    yield
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\kombu\serialization.py", line 221, in dumps
+    payload = encoder(data)
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\kombu\utils\json.py", line 70, in dumps
+    **dict(default_kwargs, **kwargs))
+  File "D:\pyhton\python3.6.1\lib\json\__init__.py", line 238, in dumps
+    **kw).encode(obj)
+  File "D:\pyhton\python3.6.1\lib\json\encoder.py", line 199, in encode
+    chunks = self.iterencode(o, _one_shot=True)
+  File "D:\pyhton\python3.6.1\lib\json\encoder.py", line 257, in iterencode
+    return _iterencode(o, 0)
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\kombu\utils\json.py", line 59, in default
+    return super(JSONEncoder, self).default(o)
+  File "D:\pyhton\python3.6.1\lib\json\encoder.py", line 180, in default
+    o.__class__.__name__)
+kombu.exceptions.EncodeError: Object of type 'Link' is not JSON serializable
+2020-08-30 21:56:29,453 - spotify - ERROR - Exception on /ajax/parse/order [GET]
+Traceback (most recent call last):
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\kombu\serialization.py", line 50, in _reraise_errors
+    yield
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\kombu\serialization.py", line 221, in dumps
+    payload = encoder(data)
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\kombu\utils\json.py", line 70, in dumps
+    **dict(default_kwargs, **kwargs))
+  File "D:\pyhton\python3.6.1\lib\json\__init__.py", line 238, in dumps
+    **kw).encode(obj)
+  File "D:\pyhton\python3.6.1\lib\json\encoder.py", line 199, in encode
+    chunks = self.iterencode(o, _one_shot=True)
+  File "D:\pyhton\python3.6.1\lib\json\encoder.py", line 257, in iterencode
+    return _iterencode(o, 0)
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\kombu\utils\json.py", line 59, in default
+    return super(JSONEncoder, self).default(o)
+  File "D:\pyhton\python3.6.1\lib\json\encoder.py", line 180, in default
+    o.__class__.__name__)
+TypeError: Object of type 'Link' is not JSON serializable
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\flask\app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\flask\app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\flask\app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\flask\app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\flask\app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "D:\webproject\flaskproject\spotify\spotify\__init__.py", line 167, in new_order
+    get_celery.delay(e,p,link)
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\celery\app\task.py", line 426, in delay
+    return self.apply_async(args, kwargs)
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\celery\app\task.py", line 570, in apply_async
+    **options
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\celery\app\base.py", line 741, in send_task
+    amqp.send_task_message(P, name, message, **options)
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\celery\app\amqp.py", line 561, in send_task_message
+    **properties
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\kombu\messaging.py", line 169, in publish
+    compression, headers)
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\kombu\messaging.py", line 252, in _prepare
+    body) = dumps(body, serializer=serializer)
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\kombu\serialization.py", line 221, in dumps
+    payload = encoder(data)
+  File "D:\pyhton\python3.6.1\lib\contextlib.py", line 100, in __exit__
+    self.gen.throw(type, value, traceback)
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\kombu\serialization.py", line 54, in _reraise_errors
+    reraise(wrapper, wrapper(exc), sys.exc_info()[2])
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\vine\five.py", line 194, in reraise
+    raise value.with_traceback(tb)
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\kombu\serialization.py", line 50, in _reraise_errors
+    yield
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\kombu\serialization.py", line 221, in dumps
+    payload = encoder(data)
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\kombu\utils\json.py", line 70, in dumps
+    **dict(default_kwargs, **kwargs))
+  File "D:\pyhton\python3.6.1\lib\json\__init__.py", line 238, in dumps
+    **kw).encode(obj)
+  File "D:\pyhton\python3.6.1\lib\json\encoder.py", line 199, in encode
+    chunks = self.iterencode(o, _one_shot=True)
+  File "D:\pyhton\python3.6.1\lib\json\encoder.py", line 257, in iterencode
+    return _iterencode(o, 0)
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\kombu\utils\json.py", line 59, in default
+    return super(JSONEncoder, self).default(o)
+  File "D:\pyhton\python3.6.1\lib\json\encoder.py", line 180, in default
+    o.__class__.__name__)
+kombu.exceptions.EncodeError: Object of type 'Link' is not JSON serializable
+2020-08-30 22:07:46,134 - spotify - ERROR - Exception on /ajax/parse/order [GET]
+Traceback (most recent call last):
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\flask\app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\flask\app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\flask\app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\flask\app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\flask\app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "D:\webproject\flaskproject\spotify\spotify\__init__.py", line 165, in new_order
+    get_celery.delay(e,p,link.id)
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\celery\app\task.py", line 426, in delay
+    return self.apply_async(args, kwargs)
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\celery\app\task.py", line 570, in apply_async
+    **options
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\celery\app\base.py", line 737, in send_task
+    with self.producer_or_acquire(producer) as P:
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\celery\utils\objects.py", line 88, in __enter__
+    *self.fb_args, **self.fb_kwargs
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\kombu\resource.py", line 83, in acquire
+    R = self.prepare(R)
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\kombu\pools.py", line 62, in prepare
+    p = p()
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\kombu\utils\functional.py", line 210, in __call__
+    return self.evaluate()
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\kombu\utils\functional.py", line 213, in evaluate
+    return self._fun(*self._args, **self._kwargs)
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\kombu\pools.py", line 42, in create_producer
+    conn = self._acquire_connection()
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\kombu\pools.py", line 39, in _acquire_connection
+    return self.connections.acquire(block=True)
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\kombu\resource.py", line 83, in acquire
+    R = self.prepare(R)
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\kombu\connection.py", line 1010, in prepare
+    resource = resource()
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\kombu\utils\functional.py", line 210, in __call__
+    return self.evaluate()
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\kombu\utils\functional.py", line 213, in evaluate
+    return self._fun(*self._args, **self._kwargs)
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\kombu\connection.py", line 982, in new
+    return self.connection.clone()
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\kombu\connection.py", line 626, in clone
+    return self.__class__(**dict(self._info(resolve=False), **kwargs))
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\kombu\connection.py", line 636, in _info
+    D = self.transport.default_connection_params
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\kombu\connection.py", line 906, in transport
+    self._transport = self.create_transport()
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\kombu\connection.py", line 615, in create_transport
+    return self.get_transport_cls()(client=self)
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\kombu\transport\redis.py", line 1044, in __init__
+    raise ImportError('Missing redis library (pip install redis)')
+ImportError: Missing redis library (pip install redis)
+2020-08-30 22:17:55,092 - spotify - ERROR - Exception on /ajax/parse/order [GET]
+Traceback (most recent call last):
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\flask\app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\flask\app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\flask\app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\flask\app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\flask\app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\flask_login\utils.py", line 272, in decorated_view
+    return func(*args, **kwargs)
+  File "D:\webproject\flaskproject\spotify\spotify\blueprints\ajax.py", line 33, in new_order
+    get.delay(e,p,link)
+AttributeError: 'function' object has no attribute 'delay'

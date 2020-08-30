@@ -15,6 +15,7 @@ class BaseConfig():
     SECRET_KEY='lrabbit'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     PER_PAGE=12
+    CELERY_RESULT_BACKEND = 'redis://localhost:6379'
 
     #whooshee
     WHOOSHEE_MIN_STRING_LEN=1
@@ -25,7 +26,7 @@ class DevelopmentConfig(BaseConfig):
 
     SQLALCHEMY_DATABASE_URI = \
         prefix + os.path.join(basedir, 'data-dev.db')
-    REDIS_URL = "redis://localhost"
+    CELERY_RESULT_BACKEND='redis://localhost:6379'
 
 class ProductionConfig(BaseConfig):
     SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URL',

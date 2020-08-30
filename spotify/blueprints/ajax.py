@@ -3,6 +3,7 @@ from flask import Blueprint,flash,redirect,url_for,request,render_template
 from flask_login import login_required
 from spotify.models import Order,Link
 from multiprocessing import Process
+import _thread
 from spotify.extendtions import db
 from spotify.parse import get
 
@@ -13,10 +14,6 @@ ajax_bp=Blueprint('ajax',__name__)
 @ajax_bp.route('/parse/order',methods=['POST','GET'])
 @login_required
 def new_order():
-
-    email='qh0607284@163.com'
-    password='07551012'
-    link='https://www.spotify.com/us/family/join/invite/85yY34a95B6Ac99/'
 
     e=request.args.get('email')
     p=request.args.get('password')
@@ -34,6 +31,8 @@ def new_order():
 
     t=Process(target=get,args=(e,p,link))
     t.start()
+    # _thread.start_new_thread(get,(e,p,link,))
+
     flash('提交成功,正在处理','success')
     return redirect(url_for('main.index'))
 
