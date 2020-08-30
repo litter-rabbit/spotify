@@ -1,23 +1,18 @@
-
-
-from flask import Flask,render_template,request
-from spotify.extendtions import db,login_manager,whooshee,csrf,migrate,bootstrap,moment
+from flask import Flask, render_template, request
+from spotify.extendtions import db, login_manager, whooshee, csrf, migrate, bootstrap, moment
 from spotify.blueprints.main import main_bp
 from spotify.blueprints.auth import auth_bp
 from spotify.blueprints.ajax import ajax_bp
-from spotify.settings import config,basedir
+from spotify.settings import config, basedir
 
 import click
 import logging
 from logging.handlers import SMTPHandler, RotatingFileHandler
 from spotify.models import Admin
 
-
 from spotify.extendtions import db
 from spotify.models import Order
 import os
-
-
 
 
 # def create_app(configname=None):
@@ -36,9 +31,7 @@ import os
 #     return app
 
 
-
-
-def  register_extendtions(app):
+def register_extendtions(app):
     db.init_app(app)
     app.app_context().push()
     login_manager.init_app(app)
@@ -46,16 +39,15 @@ def  register_extendtions(app):
     moment.init_app(app)
     whooshee.init_app(app)
     csrf.init_app(app)
-    migrate.init_app(app,db)
+    migrate.init_app(app, db)
     register_logging(app)
 
 
-
 def register_blueprints(app):
-
     app.register_blueprint(main_bp)
-    app.register_blueprint(auth_bp,url_prefix='/auth')
-    app.register_blueprint(ajax_bp,url_prefix='/ajax')
+    app.register_blueprint(auth_bp, url_prefix='/auth')
+    app.register_blueprint(ajax_bp, url_prefix='/ajax')
+
 
 def register_logging(app):
     class RequestFormatter(logging.Formatter):
@@ -80,8 +72,8 @@ def register_logging(app):
     if not app.debug:
         app.logger.addHandler(file_handler)
 
-def register_command(app):
 
+def register_command(app):
     @app.cli.command()
     @click.option('--drop', is_flag=True, help='Create after drop.')
     def initdb(drop):
@@ -96,19 +88,20 @@ def register_command(app):
     @app.cli.command()
     def initadmin():
         """Initialize the admin."""
-        admin=Admin(username='admin',passwrod='admin')
+        admin = Admin(username='admin', passwrod='admin')
         db.session.add(admin)
         db.session.commit()
         click.echo('Initialized admin.')
 
-
-
-
-
-
-
-
-
+    @app.cli.command()
+    @click.option('--username', prompt=True, help='The username used to login.')
+    @click.option('--password', prompt=True, hide_input=True,
+                  confirmation_prompt=True, help='The password used to login.')
+    def addadmin(username, password):
+        click.echo('Creating the temporary administrator account...')
+        admin=Admin(username=username,passwrod=password)
+        db.session.add(admin)
+        db.session.commit()
 
 
 def register_errorhandlers(app):
@@ -133,8 +126,8 @@ def register_errorhandlers(app):
         return render_template('errors/500.html'), 500
 
 
-configname=os.getenv('FLASK_CONFIG','development')
-app=Flask('spotify')
+configname = os.getenv('FLASK_CONFIG', 'development')
+app = Flask('spotify')
 app.config.from_object(config[configname])
 register_extendtions(app)
 register_blueprints(app)

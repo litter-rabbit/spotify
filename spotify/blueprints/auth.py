@@ -11,7 +11,7 @@ def login():
         return redirect(url_for('main.index'))
     form = LoginForm()
     if form.validate_on_submit():
-        admin= Admin.query.first_or_404()
+        admin= Admin.query.filter_by(username=form.username.data).first()
         if form.username.data==admin.username and form.password.data==admin.passwrod:
             login_user(admin,form.rememberme)
             flash('登录成功')

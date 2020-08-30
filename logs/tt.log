@@ -9,3 +9,20 @@ Traceback (most recent call last):
   File "D:\webproject\flaskproject\spotify\env\lib\site-packages\flask\app.py", line 2098, in make_response
     "The view function did not return a valid response. The"
 TypeError: The view function did not return a valid response. The function either returned None or ended without a return statement.
+2020-08-30 19:56:08,909 - spotify - ERROR - Exception on /auth/login [POST]
+Traceback (most recent call last):
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\flask\app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\flask\app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\flask\app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\flask\_compat.py", line 39, in reraise
+    raise value
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\flask\app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "D:\webproject\flaskproject\spotify\env\lib\site-packages\flask\app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "D:\webproject\flaskproject\spotify\spotify\blueprints\auth.py", line 14, in login
+    admin= Admin.query.filter_by(username=form.usrname.data).first()
+AttributeError: 'LoginForm' object has no attribute 'usrname'
