@@ -9,8 +9,6 @@ from spotify.models import Order
 from dateutil.relativedelta import relativedelta
 import datetime
 
-
-
 def get(email, password, link):
 
     option = webdriver.ChromeOptions()
