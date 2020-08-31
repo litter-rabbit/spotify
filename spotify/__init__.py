@@ -13,7 +13,6 @@ from spotify.models import Admin
 
 from spotify.extendtions import db
 from spotify.models import Order
-from celery import Celery
 import os
 
 
