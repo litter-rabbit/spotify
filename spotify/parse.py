@@ -14,7 +14,7 @@ def get(email, password, link):
 
     option = webdriver.ChromeOptions()
     option.add_argument('--no-sandbox')
-    #option.add_argument('--headless')
+    option.add_argument('--headless')
     option.add_argument('--disable-gpu')
     option.add_argument('--hide-scrollbars')
     option.add_argument('blink-settings=imagesEnabled=false')
