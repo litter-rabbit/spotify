@@ -23,7 +23,6 @@ def get(email, password, link):
     order = Order(email=email, password=password, link=link)
     db.session.add(order)
     db.session.commit()
-
     #修改地区
     driver.get('https://www.spotify.com/us/account/profile/')
     #登录
@@ -34,11 +33,19 @@ def get(email, password, link):
     inputs[1].send_keys(password)
     log_in_btn = driver.find_element_by_id('login-button')
     log_in_btn.click()
-    usa=WebDriverWait(driver,8,0.5).until(
-        EC.presence_of_element_located((By.XPATH,'/html/body/div[1]/div[4]/div/div[2]/div[2]/div[2]/div/article/section/form/section/div[5]/div[2]/select'))
-    )
-    Select(usa).select_by_value('US')
-    save_btn=driver.find_element_by_xpath('/html/body/div[1]/div[4]/div/div[2]/div[2]/div[2]/div/article/section/form/div/button')
+    try:
+        usa=WebDriverWait(driver,6,0.5).until(
+            EC.presence_of_element_located((By.XPATH,'/html/body/div[1]/div[4]/div/div[2]/div[2]/div[2]/div/article/section/form/section/div[5]/div[2]/select'))
+        )
+        Select(usa).select_by_value('US')
+
+        save_btn=driver.find_element_by_xpath('/html/body/div[1]/div[4]/div/div[2]/div[2]/div[2]/div/article/section/form/div/button')
+    except ex.TimeoutException:
+        order.status = '密码错误'
+        db.session.commit()
+        driver.close()
+        driver.quit()
+        return None
     save_btn.click()
 
     link_split = link.infos.split('/')
@@ -48,11 +55,14 @@ def get(email, password, link):
     link_address = 'https://www.spotify.com/us/family/join/address/' + token + '/'
     driver.get(link_address)
     try:
-        address_input = WebDriverWait(driver, 8, 0.5).until(
+        address_input = WebDriverWait(driver, 6, 0.5).until(
             EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/form/main/div/section/div/div[2]/input'))
         )
     except ex.TimeoutException:
-        order.status = '密码错误或已经被邀请'
+        error_msg=driver.find_element_by_xpath('/html/body/div[2]/main/div/section/h1')
+
+        # order.status = '密码错误或已经被邀请'
+        order.status = error_msg.text
         db.session.commit()
         driver.close()
         driver.quit()
@@ -74,7 +84,8 @@ def get(email, password, link):
 
     time.sleep(3)
     if driver.current_url == link_address:
-        order.status = '链接失效'
+        error_msg = driver.find_element_by_xpath('/html/body/div[2]/main/div/section/h1')
+        order.status = error_msg.text
         db.session.delete(link)
         db.session.commit()
         driver.close()

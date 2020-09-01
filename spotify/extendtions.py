@@ -12,6 +12,7 @@ from flask_migrate import Migrate
 
 
 
+
 db=SQLAlchemy()
 bootstrap=Bootstrap()
 login_manager=LoginManager()
@@ -32,7 +33,6 @@ def create_app():
     app = Flask(__name__)
     db.init_app(app)
     return app
-
 
 
 
