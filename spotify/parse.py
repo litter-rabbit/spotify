@@ -67,6 +67,7 @@ def get(email, password, link):
             EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/form/main/div/section/div/div[2]/input'))
         )
     except ex.TimeoutException:
+        print(driver.current_url)
         if driver.current_url == 'https://www.spotify.com/us/account/family/':
             error_msg='已开通会员'
         else:
