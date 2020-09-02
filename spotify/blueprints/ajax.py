@@ -15,9 +15,8 @@ ajax_bp=Blueprint('ajax',__name__)
 @ajax_bp.route('/parse/order',methods=['POST','GET'])
 @login_required
 def new_order():
-
-    e=request.args.get('email')
-    p=request.args.get('password')
+    e=request.args.get('email').strip()
+    p=request.args.get('password').strip()
 
     while True:
         link=Link.query.first()
@@ -52,7 +51,6 @@ def new_orders():
         flash('提交完毕','success')
     else:
         flash('格式输入错误','danger')
-
 
     return redirect(url_for('main.index'))
 
