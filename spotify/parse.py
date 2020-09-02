@@ -49,7 +49,6 @@ def get(email, password, link):
     link_address = 'https://www.spotify.com/us/family/join/address/' + token + '/'
     driver.get(link_address)
     try:
-
         inputs = WebDriverWait(driver, 8, 0.5).until(
             EC.presence_of_all_elements_located((By.TAG_NAME, 'input'))
         )
@@ -59,7 +58,6 @@ def get(email, password, link):
         inputs[1].send_keys(password)
         log_in_btn = driver.find_element_by_id('login-button')
         log_in_btn.click()
-
     except ex.TimeoutException:
         order.status = '密码错误'
         db.session.commit()
@@ -67,7 +65,7 @@ def get(email, password, link):
         driver.quit()
         return None
     try:
-        address_input = WebDriverWait(driver, 6, 0.5).until(
+        address_input = WebDriverWait(driver, 18, 0.5).until(
             EC.presence_of_element_located((By.XPATH, '/html/body/div[2]/form/main/div/section/div/div[2]/input'))
         )
     except ex.TimeoutException:
