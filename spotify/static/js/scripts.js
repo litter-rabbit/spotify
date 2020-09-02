@@ -41,6 +41,21 @@ $(function () {
             }, 200);
         }
     }
+
+    var resfresh=setInterval(function(){
+        $.ajax({
+                type: 'GET',
+                url: '/ajax/get/orders',
+                cache:false,
+                datatype: 'html',
+                success: function (data) {
+                    $('#table').html(data)
+
+                }
+            });
+
+    },5000)
+
     $('.profile-popover').hover(show_profile_popover.bind(this), hide_profile_popover.bind(this));
 
 });

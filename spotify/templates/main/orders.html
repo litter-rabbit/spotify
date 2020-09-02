@@ -1,0 +1,44 @@
+{% from 'bootstrap/pagination.html' import render_pagination %}
+
+<div id="#table">
+    <table class="table table-striped " style="border-bottom: 1px solid #f0f2f7;">
+        <thead>
+        <tr>
+            <td>邮箱</td>
+            <td>密码</td>
+            <td>订单状态</td>
+            <td>下单时间</td>
+            <td>操作</td>
+        </tr>
+        </thead>
+        {% for order in orders %}
+        <tr>
+            <td>{{ order.email }}</td>
+            <td>{{ order.password }}</td>
+            {% if order.status=='正在处理' %}
+            <td class="btn-runing">
+                {{order.status}}
+            </td>
+            {% elif order.status=='处理成功' %}
+            <td class="btn-ok">
+                {{order.status}}
+            </td>
+            {% else %}
+            <td class="btn-error">
+                {{order.status}}
+                {% endif %}
+            </td>
+            <td>{{ moment(order.timestamp).format('L')}} <small>{{ (moment(order.timestamp).fromNow(refresh=True))
+                }}</small></td>
+            <td>
+                <button type="button" class="btn btn-primary btn-sm profile-popover "
+                        data-href="{{ url_for('ajax.get_detail',order_id=order.id) }}">查看详情
+                </button>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+</div>
+ {{ moment.locale('zh-cn') }}
+{{ moment.include_moment(local_js=url_for('static', filename='js/moment-with-locales.min.js')) }}

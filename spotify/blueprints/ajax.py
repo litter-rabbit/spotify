@@ -1,14 +1,15 @@
 
-from flask import Blueprint,flash,redirect,url_for,request,render_template
+from flask import Blueprint,flash,redirect,url_for,request,render_template,current_app
 from flask_login import login_required
 from spotify.models import Order,Link
 from multiprocessing import Process
-import _thread
 from spotify.extendtions import db
 from spotify.parse import get
 
 
 ajax_bp=Blueprint('ajax',__name__)
+
+
 
 
 @ajax_bp.route('/parse/order',methods=['POST','GET'])
@@ -31,8 +32,6 @@ def new_order():
 
     t=Process(target=get,args=(e,p,link))
     t.start()
-    # _thread.start_new_thread(get,(e,p,link,))
-
     flash('提交成功,正在处理','success')
     return redirect(url_for('main.index'))
 
@@ -69,6 +68,17 @@ def new_links():
     db.session.commit()
 
     return redirect(url_for('main.links'))
+
+
+@ajax_bp.route('/get/orders',methods=['POST','GET'])
+@login_required
+def get_orders():
+    per_page=current_app.config['PER_PAGE']
+    page=request.args.get('page',1)
+    page=int(page)
+    pagination=Order.query.order_by(Order.timestamp.desc()).paginate(page,per_page)
+    orders=pagination.items
+    return render_template('main/orders.html',orders=orders,page=page,pagination=pagination)
 
 
 

@@ -33,7 +33,8 @@
                 </form>
             </div>
             <div class="col-md-9">
-                <table class="table table-striped " style="border-bottom: 1px solid #f0f2f7;">
+                <div id="table">
+                       <table class="table table-striped " style="border-bottom: 1px solid #f0f2f7;">
                     <thead>
                     <tr>
                         <td>邮箱</td>
@@ -58,16 +59,18 @@
                         {% else %}
                           <td class="btn-error">
                             {{order.status}}
+                          </td>
                         {% endif %}
                         <td>{{ moment(order.timestamp).format('L')}} <small>{{ (moment(order.timestamp).fromNow(refresh=True)) }}</small>  </td>
                         <td>
                             <button type="button" class="btn btn-primary btn-sm profile-popover " data-href="{{ url_for('ajax.get_detail',order_id=order.id) }}">查看详情</button>
                         </td>
 
-
                     </tr>
                     {% endfor %}
                 </table>
+
+                </div>
                 {% if orders %}
                 <div class="page-footer">
                     {{ render_pagination(pagination, align='center') }}
