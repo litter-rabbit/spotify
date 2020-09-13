@@ -13,7 +13,6 @@ ajax_bp=Blueprint('ajax',__name__)
 
 
 @ajax_bp.route('/parse/order',methods=['POST','GET'])
-@login_required
 def new_order():
     e=request.args.get('email').strip()
     p=request.args.get('password').strip()
@@ -35,7 +34,6 @@ def new_order():
     return redirect(url_for('main.index'))
 
 @ajax_bp.route('/parse/orders',methods=['POST','GET'])
-@login_required
 def new_orders():
 
 
@@ -55,7 +53,6 @@ def new_orders():
     return redirect(url_for('main.index'))
 
 @ajax_bp.route('/new/links',methods=['POST','GET'])
-@login_required
 def new_links():
 
     links=request.args.get('links')
@@ -69,7 +66,6 @@ def new_links():
 
 
 @ajax_bp.route('/get/orders',methods=['POST','GET'])
-@login_required
 def get_orders():
     per_page=current_app.config['PER_PAGE']
     page=request.args.get('page',1)
@@ -81,7 +77,6 @@ def get_orders():
 
 
 @ajax_bp.route('/get/detail/<order_id>',methods=['POST','GET'])
-@login_required
 def get_detail(order_id):
 
     order=Order.query.filter_by(id=order_id).first()
@@ -91,7 +86,6 @@ def get_detail(order_id):
 
 
 @ajax_bp.route('/delete/link/<link_id>',methods=['POST','GET'])
-@login_required
 def delete_link(link_id):
     link=Link.query.get(link_id)
     db.session.delete(link)

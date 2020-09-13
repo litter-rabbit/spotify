@@ -11,7 +11,6 @@ from spotify.models import Order,Link
 main_bp=Blueprint('main',__name__)
 
 @main_bp.route('/',methods=['GET','POST'])
-@login_required
 def index():
     #
     per_page=current_app.config['PER_PAGE']
@@ -23,7 +22,6 @@ def index():
 
 
 @main_bp.route('/links',methods=['GET','POST'])
-@login_required
 def links():
     #
     per_page=current_app.config['PER_PAGE']
